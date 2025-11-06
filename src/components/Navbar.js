@@ -12,7 +12,7 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div className="container-fluid">
         <NavLink to="/" className="navbar-brand">
-        Kiosko de kiko
+        Kiosko de kito
         </NavLink>
 
         <div className="collapse navbar-collapse">
