@@ -1,0 +1,43 @@
+/* Productos.css */
+
+.productos-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #212529, #343a40); /* mismo fondo que Navbar */
+  color: #fff;
+  border-radius: 8px;
+}
+
+.productos-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.productos-container form {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.productos-container .form-label {
+  font-weight: 600;
+  color: #343a40;
+}
+
+.productos-container .btn {
+  min-width: 120px;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.productos-container .btn-success {
+  background: #198754;
+  border: none;
+}
+
+.productos-container .btn-secondary {
+  background: #6c757d;
+  border: none;
+}
