@@ -1,49 +1,16 @@
-/* Navbar.css */
-
-header {
-  min-height: 100vh;
+.navbar {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #212529, #343a40);
-  color: #fff;
-  text-align: center;
-  padding: 2rem;
+  gap: 20px;
+  background-color: #ddd;
+  padding: 10px;
 }
 
-header h1 {
-  font-size: 2.5rem;
+.link {
+  color: blue;
+  text-decoration: none;
+}
+
+.active {
+  color: gray;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-header p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: #ccc;
-}
-
-header nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-header nav .btn {
-  min-width: 150px;
-  padding: 0.7rem 1.2rem;
-  border-radius: 6px;
-  transition: 0.3s;
-}
-
-header nav .btn-primary {
-  background: #0d6efd;
-  border: none;
-}
-
-header nav .btn-outline-light:hover {
-  background: #fff;
-  color: #212529;
 }

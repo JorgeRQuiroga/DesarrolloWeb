@@ -1,52 +1,34 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Lista from "./components/Lista";
-import Productos from "./components/Productos";
+import Home from "./pages/Home";
+import Productos from "./pages/Productos";
+import NuevaVenta from "./pages/NuevaVenta";
 import "./App.css";
+import NuevoProducto from "./pages/NuevoProducto";
+import { KioskoProvider } from "./context/KioskoContext";
+import Ventas from "./pages/Ventas";
+import DetalleCarrito from "./pages/DetalleCarrito";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
-  const [productos, setProductos] = useState([
-    { id: 1, nombre: "Gaseosa", precio: 500 },
-    { id: 2, nombre: "Chocolate", precio: 300 },
-  ]);
-
-  const agregarProducto = (nuevo) => {
-    setProductos([...productos, { id: Date.now(), ...nuevo }]);
-  };
-
-  const eliminarProducto = (id) => {
-    setProductos(productos.filter((p) => p.id !== id));
-  };
-
   return (
-    <Router>
-      <Routes>
-        {/* Home con Navbar de bienvenida */}
-        <Route
-          path="/"
-          element={
-            <Navbar
-              links={[
-                { to: "/lista", label: "Lista de productos" },
-                { to: "/productos", label: "Agregar productos" },
-              ]}
-            />
-          }
-        />
-
-        {/* Pantallas independientes */}
-        <Route
-          path="/lista"
-          element={<Lista productos={productos} onEliminar={eliminarProducto} />}
-        />
-        <Route
-          path="/productos"
-          element={<Productos onAgregar={agregarProducto} />}
-        />
-      </Routes>
-    </Router>
+    <KioskoProvider>
+      <Router>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Productos" element={<Productos />} />            
+            <Route path="/ContadorVentas" element={<NuevaVenta />} />
+            <Route path="/Productos/NuevoProducto" element={<NuevoProducto />} />            
+            <Route path="/ventas" element={<Ventas />} />
+            <Route path="/carrito" element={<DetalleCarrito />} />
+          </Routes>
+        </div>
+      </Router>
+    </KioskoProvider>
   );
 }
 
