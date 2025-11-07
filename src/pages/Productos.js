@@ -13,8 +13,8 @@ function Productos() {
 return (
   <div className="container mt-4">
     <div className="card shadow">
-      <div className="card-header bg-primary text-white">
-        <h3 className="mb-0">Lista de Productos</h3>
+      <div className="card-header bg-primary text-white text-center">
+        <h3 className="mb-0">📦 Lista de Productos</h3>
       </div>
       <div className="card-body">
         {state.productos && state.productos.length > 0 ? (
@@ -25,19 +25,28 @@ return (
                 className="list-group-item d-flex justify-content-between align-items-center"
               >
                 <div>
-                  <strong>{prod.nombre}</strong> <span className="text-muted">- ${prod.precio}</span>
+                  <strong>{prod.nombre}</strong>{" "}
+                  <span className="text-muted">- ${prod.precio}</span>
                 </div>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => eliminarProducto(prod.id)}
-                >
-                  X Eliminar
-                </button>
+                <div className="d-flex justify-content-end gap-2">
+                  <button
+                    className="btn btn-sm btn-info"
+                    onClick={() => navigate(`/productos/${prod.id}`)}
+                  >
+                    Detalle
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => eliminarProducto(prod.id)}
+                  >
+                    X Eliminar
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
         ) : (
-          <div className="alert alert-warning mt-3">
+          <div className="alert alert-warning mt-3 text-center">
             No hay productos disponibles
           </div>
         )}

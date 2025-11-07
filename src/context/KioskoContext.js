@@ -6,8 +6,8 @@ const initialState = {
   ventas: 0,
   carrito: [],
   productos: [
-    { id: 1, nombre: "Coca cola", precio: 1200 },
-    { id: 2, nombre: "Fanta", precio: 800 }
+    { id: 1, nombre: "Coca cola", precio: 1200, stock: 20 },
+    { id: 2, nombre: "Fanta", precio: 800, stock: 15 }
   ]
 };
 function reducer(state, action) {
@@ -20,30 +20,42 @@ function reducer(state, action) {
         ...state,
         productos: state.productos.filter((p) => p.id !== action.payload),
       };
+    case "editarProducto":
+      return {
+        ...state,
+        productos: state.productos.map((p) =>
+          p.id === action.payload.id ? { ...p, ...action.payload } : p
+        ),
+      };
 
     case "agregarAlCarrito": {
-      // Buscar si el producto ya está en el carrito
-      const existe = state.carrito.find((p) => p.id === action.payload.id);
+      const producto = action.payload;
+      const existente = state.carrito.find((p) => p.id === producto.id);
 
-      if (existe) {
-        // Si ya existe, aumentar la cantidad
+      if (existente) {
+        // Si ya está en el carrito, comprobar stock
+        if (existente.cantidad + 1 > producto.stock) {
+          alert("⚠️ No hay más stock disponible de " + producto.nombre);
+          return state; // no modifica nada
+        }
         return {
           ...state,
           carrito: state.carrito.map((p) =>
-            p.id === action.payload.id
-              ? { ...p, cantidad: (p.cantidad || 1) + 1 }
-              : p
+            p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
           ),
         };
       } else {
-        // Si no existe, agregarlo con cantidad = 1
+        // Primer ingreso al carrito
+        if (producto.stock < 1) {
+          alert("⚠️ No hay stock disponible de " + producto.nombre);
+          return state;
+        }
         return {
           ...state,
-          carrito: [...state.carrito, { ...action.payload, cantidad: 1 }],
+          carrito: [...state.carrito, { ...producto, cantidad: 1 }],
         };
       }
     }
-
     case "actualizarCantidad":
       return {
         ...state,
@@ -65,10 +77,25 @@ function reducer(state, action) {
 
     case "confirmarCompra": {
       const totalCompra = state.carrito.reduce(
-        (sum, p) => sum + p.precio * (p.cantidad || 1),
+        (sum, p) => sum + p.precio * p.cantidad,
         0
       );
-      return { ...state, ventas: state.ventas + totalCompra, carrito: [] };
+
+      // Actualizar stock
+      const productosActualizados = state.productos.map((prod) => {
+        const comprado = state.carrito.find((c) => c.id === prod.id);
+        if (comprado) {
+          return { ...prod, stock: prod.stock - comprado.cantidad };
+        }
+        return prod;
+      });
+
+      return {
+        ...state,
+        ventas: state.ventas + totalCompra,
+        carrito: [],
+        productos: productosActualizados,
+      };
     }
 
     default:

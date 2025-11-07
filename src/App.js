@@ -10,7 +10,8 @@ import { KioskoProvider } from "./context/KioskoContext";
 import Ventas from "./pages/Ventas";
 import DetalleCarrito from "./pages/DetalleCarrito";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import ProductoDetalle from "./pages/ProductoDetalle";
+import EditarProducto from "./pages/EditarProducto";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Productos" element={<Productos />} />            
+            <Route path="/Productos" element={<Productos />} />
+            <Route path="/productos/:id" element={<ProductoDetalle />} />  
+            <Route path="/productos/:id/editar" element={<EditarProducto />} />          
             <Route path="/ContadorVentas" element={<NuevaVenta />} />
             <Route path="/Productos/NuevoProducto" element={<NuevoProducto />} />            
             <Route path="/ventas" element={<Ventas />} />
